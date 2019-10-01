@@ -12,7 +12,7 @@ class Hash
 	list<int> *table; 
 
 public: 
-  // Constructor
+  	// Constructor
 	Hash(int V);  
 
 	// inserts a key into hash table 
@@ -22,7 +22,8 @@ public:
 	void deleteItem(int key); 
 
 	// hash function to map values to key 
-	int hashFunction(int x) { 
+	int hashFunction(int x)
+	{ 
 		return (x % BUCKET); 
 	} 
 
@@ -43,16 +44,17 @@ void Hash::insertItem(int key)
 
 void Hash::deleteItem(int key) 
 { 
-// get the hash index of key 
-int index = hashFunction(key); 
+	// get the hash index of key 
+	int index = hashFunction(key); 
+	
+	// find the key in (inex)th list 
+	list <int> :: iterator i; 
 
-// find the key in (inex)th list 
-list <int> :: iterator i; 
-for (i = table[index].begin(); 
-		i != table[index].end(); i++) { 
+	for (i = table[index].begin(); i != table[index].end(); i++) 
+	{ 
 	if (*i == key) 
-	break; 
-} 
+		break; 
+	} 
 
 // if key is found in hash table, remove it 
 if (i != table[index].end()) 
@@ -60,13 +62,15 @@ if (i != table[index].end())
 } 
 
 // function to display hash table 
-void Hash::displayHash() { 
-for (int i = 0; i < BUCKET; i++) { 
-	cout << i; 
-	for (auto x : table[i]) 
-	cout << " --> " << x; 
-	cout << endl; 
-} 
+void Hash::displayHash() 
+{
+	for (int i = 0; i < BUCKET; i++)
+	{ 
+		cout << i; 
+		for (auto x : table[i]) 
+			cout << " --> " << x; 
+		cout << endl; 
+	} 
 } 
 
 // Driver program 
@@ -76,9 +80,10 @@ int main()
 int a[] = {15, 11, 27, 8, 12}; 
 int n = sizeof(a)/sizeof(a[0]); 
 
-// insert the keys into the hash table 
-Hash h(7); // 7 is count of buckets in 
-			// hash table 
+// insert the keys into the hash table
+// 7 is count of buckets in hash table 
+
+Hash h(7);
 for (int i = 0; i < n; i++) 
 	h.insertItem(a[i]); 
 
