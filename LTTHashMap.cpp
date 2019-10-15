@@ -103,7 +103,7 @@ bool ExecuteOps(Desc* desc, int opid); // Declaration
 
 int MapUpdateInfo(Node* n, NodeInfo* info, bool wantkey){  // !!!ALERT!!! improvised
     NodeInfo* oldinfo = n->info;
-    if(IsMarked(int(oldinfo))){ //improvised
+    if(IsMarked(int64_t(oldinfo))){ //improvised
         DO_DELETE (n);
         return (retry);
     }
@@ -157,6 +157,14 @@ int MapUpdateInfo(Node* n, NodeInfo* info, bool wantkey){  // !!!ALERT!!! improv
 }
 
 // ALGORITHM 3 -> ALGORITHM 5
+
+
+// DECLARATION FOR LATER FUNCTIONS
+
+bool Insert(int key, Desc* desc, int opid);
+bool Find (int key, Desc* desc, int opid);
+bool Delete (int key, Desc* desc, int opid, Node*& del);
+void MarkDelete (std::set<Node*> delnodes, Desc* desc);
 
 
 bool ExecuteOps (Desc* desc, int value, int opid){
@@ -268,7 +276,7 @@ void MarkDelete (std::set<Node*> delnodes, Desc* desc){
         if(info->desc != desc){
             continue;
         }
-        if(temp->info.compare_exchange_strong(info, (NodeInfo*)SetMark(int(info)))){
+        if(temp->info.compare_exchange_strong(info, (NodeInfo*)SetMark(int64_t(info)))){
             DO_DELETE (*del);
         }
     }
