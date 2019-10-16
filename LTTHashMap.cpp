@@ -140,7 +140,7 @@ int MapUpdateInfo(Node* n, NodeInfo* info, bool wantkey){  // !!!ALERT!!! improv
     if (n->info.compare_exchange_strong(oldinfo, info)){
         if (op.type == op_find){
             if (oldOp.type == op_update or (oldOp.type == op_find && oldOp.value != INVALID)){
-                n->info.load()->value = oldOp.value; // !!!ALERT!!! improvised
+                n->info.load()->desc->ops[n->info.load()->opid].value = oldOp.value; // !!!ALERT!!! improvised
                 return (n->info.load()->value);
             }
             else{
